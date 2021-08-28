@@ -1,0 +1,29 @@
+div.center {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    /*margin: auto;
+    vertical-align: middle;
+    text-align: center;*/
+}
+
+div.border {
+    border-style: solid;
+    border-color: goldenrod;
+    width: 350px;
+}
+div.background {
+    background-color: gray;
+}
+
+label {
+    display: inline-block;
+    text-align: center;
+    width: 40px;
+}
+
+body {
+    background-color: black;
+}
