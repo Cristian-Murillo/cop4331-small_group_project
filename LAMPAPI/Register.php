@@ -1,7 +1,7 @@
 
 <?php
 	ini_set('display_errors', 'On');
-	ini_set("error_log", "/tmp/php.log")
+	ini_set("error_log", "/tmp/php.log");
 	error_reporting(E_ALL);
 	$inData = getRequestInfo();
 
