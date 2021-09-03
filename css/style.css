@@ -30,7 +30,7 @@ a:hover{
 input[type="text"],input[type="password"]{
     border-radius: 25px;
     font-size: 15px;
-    width: 30%;
+    width: 20%;
     height: 20px;
     padding: 5px;
 }
@@ -40,7 +40,7 @@ input[type="text"],input[type="password"]{
 }
 #accessUIDiv{
     background: #b2b2b2;
-    width: 60%;
+    width: 70%;
     border-radius: 15px;
     padding: 25px;
 }
