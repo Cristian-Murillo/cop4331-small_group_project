@@ -1,21 +1,29 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Small Group project</title><!--Change title when name comes-->
-        <link rel="stylesheet" type="text/css" href="./css/style.css">
-        <script type="text/javascript" src="style.js"></script>
-    </head>
-    <body>
 
-        <div class="center border background">
-            <br /><br />
-            <form class="center">
-                <label for="user">User</label> <input type="text" id="user"/><br /><br />
-                <label for="user">Pass</label>  <input type="text" id="pass"/><br /><br />
-            </form>
-            <button type = "button" onclick="saveInfo()">Log in</button>
-            <p id="error"></p>;
-            <br /><br />
-        </div>
-    </body>
+<head>
+    <meta name="viewport" content="width=device-width, intial-scale=1">
+
+    <title>Contacts-R-Us</title>
+    <!--Change title when name comes-->
+
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script type="text/javascript" src="js/code.js"></script>
+</head>
+
+<body>
+    <header>
+        <h2><a id="link" href="index.html">Contacts-R-Us</a></h2>
+    </header>
+    
+    <div class="LoginDiv">
+        <span id="inner-title">PLEASE LOG IN TO CONTACTS R US</span><br />
+        <input type="text" id="user" placeholder="  Username" required/><br />
+        <input type="password" id="pass" placeholder="  Password" required/><br />
+        <button type="button" id="loginButton" class="buttons" onclick="doLogin();"> Login </button>
+        <button type="button" id="registerButton" class="buttons" onclick="doRegister();"> Register </button>
+        <span id="loginResult"></span>
+    </div>
+</body>
+
 </html>

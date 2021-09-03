@@ -1,29 +1,47 @@
-div.center {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    /*margin: auto;
-    vertical-align: middle;
-    text-align: center;*/
+body{
+    background: gray;
+}
+a{
+    color: black;
+    text-decoration: none; 
+}
+a:hover{
+    text-decoration: underline;
+    color: lightblue;
+}
+.LoginDiv{
+    font-size: 30px;
+    width: 30%;
+    border-radius: 15px;
+    margin-left: 33%;
+    margin-top: 10%;
+    padding: 25px;
+    background: #b2b2b2;
 }
 
-div.border {
-    border-style: solid;
-    border-color: goldenrod;
-    width: 350px;
+.buttons
+{
+    font-size: 15px;
+    border-radius: 10px;
+    width: 17%;
+    margin-left: 0%;
+    font-family: 'Ubuntu', sans-serif;
 }
-div.background {
-    background-color: gray;
+input[type="text"],input[type="password"]{
+    border-radius: 25px;
+    font-size: 15px;
+    width: 20%;
+    height: 20px;
+    padding: 5px;
+}
+#loginResult{
+    font-size: 20px;
+    color: red;
+}
+#accessUIDiv{
+    background: #b2b2b2;
+    width: 70%;
+    border-radius: 15px;
+    padding: 25px;
 }
 
-label {
-    display: inline-block;
-    text-align: center;
-    width: 40px;
-}
-
-body {
-    background-color: black;
-}

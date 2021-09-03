@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, intial-scale=1">
+
+    <title>Contacts-R-us</title>
+    <!--Change title when name comes-->
+
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script type="text/javascript" src="js/code.js"></script>
+</head>
+
+<body>
+    <header>
+        <h2><a id="link" href="index.html">Contactsrus</a></h2>
+    </header>
+    
+    <h1 id="title">Contact Page</h1>
+
+
+
+<div id="accessUIDiv">
+	<br />
+
+	<input type="text" id="searchText" placeholder=" Contact To Search For"/><br /><br />
+	<button type="button" id="searchContactButton" class="buttons" onclick="searchContact();"> Search Contact </button><br />
+	<span id="contactSearchResult"></span>
+	<p id="contactList">
+	</p><br />
+
+	<input type="text" id="contactText" placeholder=" First Name">
+    <input type="text" id="contactText" placeholder=" Last Name">
+    <input type="text" id="contactText" placeholder=" Phone number">
+    <input type="text" id="contactText" placeholder=" E-mail"><br />
+	<button type="button" id="addContactButton" class="buttons" onclick="addContact();"> Add Contact </button><br />
+	<span id="contactAddResult"></span><br />
+
+    <input type="text" id="contactText" placeholder=" Contact To Delete"><br /><br />
+	<button type="button" id="deleteContactButton" class="buttons" onclick="deleteContact();"> Delete Contact </button><br />
+	<span id="contactDeleteResult"></span><br />
+
+    <div id="loggedInDiv">
+        <span id="userName"></span><br />
+        <button type="button" id="logoutButton" class="buttons" onclick="doLogout();"> Log Out </button>
+    </div>
+</div>
+
+</body>
+
+</html>
