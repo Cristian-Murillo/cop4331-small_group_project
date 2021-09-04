@@ -6,11 +6,11 @@ var firstName = "";
 var lastName = "";
 
 function doLogin() {
-	var user = document.getElementById("user").value;
-	var pass = document.getElementById("pass").value;
+	var login = document.getElementById("user").value;
+	var password = document.getElementById("password").value;
 	//	var hash = md5( password );
 
-	var tmp = { login: user, password: pass };
+	var tmp = { login: login, password: password };
 	//	var tmp = {login:login,password:hash};
 	var jsonPayload = JSON.stringify(tmp);
 
