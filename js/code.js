@@ -1,4 +1,4 @@
-var urlBase = 'contactrus.com';//
+var urlBase = 'contactsrus.xyz';//
 var extension = 'php';
 
 var userId = 0;
@@ -14,7 +14,7 @@ function doLogin() {
 	//	var tmp = {login:login,password:hash};
 	var jsonPayload = JSON.stringify(tmp);
 
-	var url = urlBase + '/Login.' + extension;
+	var url = urlBase + '/LAMPAPI/Login.' + extension;
 
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
