@@ -11,11 +11,11 @@
     <script type="text/javascript" src="js/code.js"></script>
 </head>
 
-<body>
+<body onload="welcoming();">
     <header>
         <h2><a id="link" href="index.html">Contactsrus</a></h2>
     </header>
-    
+
     <h1 id="title">Contact Page</h1>
 
 
@@ -28,13 +28,14 @@
 	<span id="contactSearchResult"></span>
 	<p id="contactList">
 	</p><br />
-
-	<input type="text" id="contactText" placeholder=" First Name">
-    <input type="text" id="contactText" placeholder=" Last Name">
-    <input type="text" id="contactText" placeholder=" Phone number">
-    <input type="text" id="contactText" placeholder=" E-mail"><br />
-	<button type="button" id="addContactButton" class="buttons" onclick="addContact();"> Add Contact </button><br />
-	<span id="contactAddResult"></span><br />
+  <form>
+	<input type="text" id="addFirstName" placeholder=" First Name">
+    <input type="text" id="addLastName" placeholder=" Last Name">
+    <input maxLength = "12" type="tel" id="addPhoneNumber" placeholder="XXX XXX XXXX" pattern = "[0-9]{3} [0-9]{3} [0-9]{4}" required>
+    <input type="text" id="addEmail" placeholder=" E-mail"><br />
+	<button type="submit" id="addContactButton" class="buttons" onclick="addContact();"> Add Contact </button><br />
+</form>
+  <span id="contactAddResult"></span><br />
 
     <input type="text" id="contactText" placeholder=" Contact To Delete"><br /><br />
 	<button type="button" id="deleteContactButton" class="buttons" onclick="deleteContact();"> Delete Contact </button><br />
@@ -47,5 +48,4 @@
 </div>
 
 </body>
-
 </html>

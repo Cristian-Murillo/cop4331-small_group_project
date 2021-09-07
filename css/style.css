@@ -3,7 +3,7 @@ body{
 }
 a{
     color: black;
-    text-decoration: none; 
+    text-decoration: none;
 }
 a:hover{
     text-decoration: underline;
@@ -28,7 +28,7 @@ a:hover{
     font-family: 'Ubuntu', sans-serif;
 }
 
-input[type="text"],input[type="password"]{
+input[type="text"],input[type="password"],input[type = "tel"]{
     border-radius: 25px;
     font-size: 15px;
     width: 40%;
@@ -49,4 +49,3 @@ input[type="text"],input[type="password"]{
     border-radius: 15px;
     padding: 25px;
 }
-

@@ -4,11 +4,9 @@ var extension = 'php';
 var userId = 0;
 var firstName = "";
 var lastName = "";
-var user =""
 
 function doLogin() {
 	var login = document.getElementById("user").value;
-	user = document.getElementById("user").value;
 	var password = document.getElementById("password").value;
 	//	var hash = md5( password );
 
@@ -40,16 +38,30 @@ function doLogin() {
 				window.location.href = "contact.html";
 			}
 		};
-			
+		xhr.send(jsonPayload);
 	}
 	catch (err) {
 		document.getElementById("loginResult").innerHTML = err.message;
 	}
-	
 }
 
 function welcoming(){
-	document.getElementById("welcome").value = "welcome " + user;
+	var data = document.cookie;
+	var splits = data.split(",");
+	for (var i = 0; i < splits.length; i++) {
+		var thisOne = splits[i].trim();
+		var tokens = thisOne.split("=");
+		if (tokens[0] == "firstName") {
+			firstName = tokens[1];
+		}
+		else if (tokens[0] == "lastName") {
+			lastName = tokens[1];
+		}
+		else if (tokens[0] == "userId") {
+			userId = parseInt(tokens[1].trim());
+		}
+	}
+	document.getElementById("welcome").innerHTML = "Welcome " + firstName + " " + lastName;
 }
 
 function doRegister() {
@@ -77,7 +89,7 @@ function doRegister() {
 	catch (err) {
 		document.getElementById("registerResult").innerHTML = err.message;
 	}
-	//i think this is how you add to 
+	//i think this is how you add to
 }
 
 function saveCookie() {
@@ -122,28 +134,46 @@ function doLogout() {
 }
 
 function addContact() {
-	var newContact = document.getElementById("contactText").value;
-	document.getElementById("contactAddResult").innerHTML = "";
+	var addFirst = document.getElementById("addFirstName").value;
+	var addLast = document.getElementById("addLastName").value;
+	var addEmail = document.getElementById("addEmail").value;
+	var addPhone = document.getElementById("addPhoneNumber").value;
 
-	var tmp = { contact: newContact, userId, userId };
-	var jsonPayload = JSON.stringify(tmp);
+	// GHETTO format checker ;)
+	for(var i = 0; i < addPhone.length; i++)
+    {
+        if( (addPhone[3] == " " && addPhone[7] == " ") && !isNaN(addPhone[i]))
+        {
+        }else{
+            return;
+        }
 
-	var url = urlBase + '/AddContact.' + extension;
+    }
 
-	var xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
-	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-	try {
-		xhr.onreadystatechange = function () {
-			if (this.readyState == 4 && this.status == 200) {
-				document.getElementById("contactAddResult").innerHTML = "Contact has been added";
-			}
-		};
-		xhr.send(jsonPayload);
-	}
-	catch (err) {
-		document.getElementById("contactAddResult").innerHTML = err.message;
-	}
+	addPhone = "(" + addPhone[0]+addPhone[1]+addPhone[2]+")"+addPhone[4]+addPhone[5]+addPhone[6]
+							+" "+addPhone[8]+addPhone[9]+addPhone[10]+addPhone[11];
+
+	var tmp = { userId: userId, firstName: addFirst, lastName: addLast, email: addEmail,
+		 					phoneNumber: addPhone};
+
+	// var jsonPayload = JSON.stringify(tmp);
+	//
+	// var url = '/LAMPAPI/Add.' + extension;
+	//
+	// var xhr = new XMLHttpRequest();
+	// xhr.open("POST", url, true);
+	// xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	// try {
+	// 	xhr.onreadystatechange = function () {
+	// 		if (this.readyState == 4 && this.status == 200) {
+	// 			document.getElementById("contactAddResult").innerHTML = "Contact has been added";
+	// 		}
+	// 	};
+	// 	xhr.send(jsonPayload);
+	// }
+	// catch (err) {
+	// 	document.getElementById("contactAddResult").innerHTML = err.message;
+	// }
 
 }
 
@@ -182,5 +212,4 @@ function searchContact() {
 	catch (err) {
 		document.getElementById("contactSearchResult").innerHTML = err.message;
 	}
-
 }
