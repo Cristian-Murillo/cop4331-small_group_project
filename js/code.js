@@ -4,9 +4,11 @@ var extension = 'php';
 var userId = 0;
 var firstName = "";
 var lastName = "";
+var user =""
 
 function doLogin() {
 	var login = document.getElementById("user").value;
+	user = document.getElementById("user").value;
 	var password = document.getElementById("password").value;
 	//	var hash = md5( password );
 
@@ -38,22 +40,28 @@ function doLogin() {
 				window.location.href = "contact.html";
 			}
 		};
-		xhr.send(jsonPayload);
+			
 	}
 	catch (err) {
 		document.getElementById("loginResult").innerHTML = err.message;
 	}
+	
+}
 
+function welcoming(){
+	document.getElementById("welcome").value = "welcome " + user;
 }
 
 function doRegister() {
-	var user = document.getElementById("user").value;
-	var pass = document.getElementById("pass").value;
-	var tmp = { login: user, password: pass };
-	//	var tmp = {login:login,password:hash};
+	firstName = document.getElementById("firstName").value;
+	lastName = document.getElementById("lastName").value;
+	var login = document.getElementById("user").value;
+	var password = document.getElementById("password").value;
+
+	var tmp = { firstName: firstName, lastName: lastName, login: login, password: password };
 	var jsonPayload = JSON.stringify(tmp);
 
-	var url = urlBase + '/Login.' + extension;
+	var url ='/LAMPAPI/Register.' + extension;
 
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
@@ -61,27 +69,15 @@ function doRegister() {
 	try {
 		xhr.onreadystatechange = function () {
 			if (this.readyState == 4 && this.status == 200) {
-				var jsonObject = JSON.parse(xhr.responseText);
-				userId = jsonObject.id;
-
-				if (userId > 1) {
-					document.getElementById("loginResult").innerHTML = "Account already exist";
-					return;
-				}
-
-				firstName = jsonObject.firstName;
-				lastName = jsonObject.lastName;
-
-				saveCookie();
-
-				window.location.href = "contact.html";
+				document.getElementById("registerResult").innerHTML = "Account has been added";
 			}
 		};
 		xhr.send(jsonPayload);
 	}
 	catch (err) {
-		document.getElementById("loginResult").innerHTML = err.message;
+		document.getElementById("registerResult").innerHTML = err.message;
 	}
+	//i think this is how you add to 
 }
 
 function saveCookie() {
