@@ -18,12 +18,23 @@
 	}
 	else
  	{
+		if (checkIfContactExists($conn, $inData["userID"], $inData["firstName"],
+		$inData["lastName"], $inData["email"], $inData["phoneNumber"]));
+			returnWithError("Contact exists");
 		$stmt = $conn->prepare("INSERT into Contacts (userID,firstName,lastName,email,phoneNumber) VALUES(?,?,?,?,?)");
 		$stmt->bind_param("sssss", $userId, $firstName, $lastName, $email, $phoneNumber);
 		$stmt->execute();
 		$stmt->close();
 		$conn->close();
 		returnWithError("");
+	}
+
+	function checkIfContactExists($conn, $userID, $firstName, $lastName, $email, $phoneNumber)
+	{
+		$result = $conn->query("SELECT * FROM Contacts WHERE userID = $userID
+			 AND firstName = $firstName AND lastName = $lastName AND email = $email
+			 AND phoneNumber = $phoneNumber");
+		return $result->num_rows == 0;
 	}
 
 	function getRequestInfo()
