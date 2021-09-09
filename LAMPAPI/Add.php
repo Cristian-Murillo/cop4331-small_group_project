@@ -5,11 +5,11 @@
 
 	$inData = getRequestInfo();
 
-	$userId = $inData["userId"];
-	$firstName = $inData["firstName"];
-	$lastName = $inData["lastName"];
-	$email = $inData["email"];
-	$phoneNumber = $inData["phoneNumber"];
+	$userId = $inData["UserId"];
+	$firstName = $inData["ContactFirstName"];
+	$lastName = $inData["ContactLastName"];
+	$email = $inData["Email"];
+	$phoneNumber = $inData["Phone"];
 
 	$conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "ContactManager");
 	if ($conn->connect_error)
@@ -18,8 +18,8 @@
 	}
 	else
  	{
-		if (checkIfContactExists($conn, $inData["userID"], $inData["firstName"],
-		$inData["lastName"], $inData["email"], $inData["phoneNumber"]));
+		if (checkIfContactExists($conn, $inData["UserID"], $inData["ContactFirstName"],
+			$inData["ContactLastName"], $inData["Email"], $inData["Phone"]));
 			returnWithError("Contact exists");
 		$stmt = $conn->prepare("INSERT into contacts (userID,firstName,lastName,email,phoneNumber) VALUES(?,?,?,?,?)");
 		$stmt->bind_param("sssss", $userId, $firstName, $lastName, $email, $phoneNumber);
