@@ -1,14 +1,12 @@
 
 <?php
-	ini_set('display_errors', 'On');
-	ini_set("error_log", "/tmp/php.log");
-	error_reporting(E_ALL);
 	$inData = getRequestInfo();
 
 	$firstName = $inData["firstName"];
 	$lastName = $inData["lastName"];
 	$login = $inData["login"];
 	$password = $inData["password"];
+	$passwordConfirm = $inData["passwordConfirm"];
 
 	// Create connection
 	$conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "ContactManager");
@@ -16,17 +14,28 @@
 	if($conn->connect_error) {
 		returnWithError($conn->connect_error);
 	} else {
-		if (checkIfUserExists($conn, $inData["login"])) {
-			if (createUser($conn, $inData["firstName"], $inData["lastName"], $inData["login"], $inData["password"])) {
-				$result = getUserInfoByLogin($conn, $login);
-				returnWithInfo($result["firstName"], $result["lastName"], $result["ID"]);
-			} else {
-				returnWithError("Error creating user");
-			}
-		} else {
-			returnWithError("User exists");
+		if (empty($firstName) || empty($lastName) || empty($login) || empty($password) || empty($passwordConfirm)) { // Check for empty fields
+			returnWithError("Fill in all the required fields");
+			exit();
 		}
-		$conn->close();
+
+		if ($password !== $passwordConfirm) { // Check if passwords match
+			returnWithError("Passwords do not match");
+			exit();
+		}
+
+		if (checkIfUserExists($conn, $inData["login"])) { // Check if user with 'login' already exists
+			returnWithError("User already exists");
+			exit();
+		}
+
+		if (createUser($conn, $inData["firstName"], $inData["lastName"], $inData["login"], $inData["password"])) {
+			$userInfo = getUserInfoByLogin($conn, $login);
+			returnWithInfo($userInfo["ID"]);
+		} else {
+			returnWithError("Error creating user");
+			exit();
+		}
 	}
 
 	function getUserInfoByLogin($conn, $login)
@@ -45,7 +54,7 @@
 	function checkIfUserExists($conn, $login)
 	{
 		$result = $conn->query("SELECT * FROM Users WHERE Login = '$login'");
-		return $result->num_rows == 0;
+		return $result->num_rows > 0;
 	}
 
 	function getRequestInfo()
@@ -61,13 +70,13 @@
 
 	function returnWithError( $err )
 	{
-		$retValue = '{"id":0,"firstName":"","lastName":"","error":"' . $err . '"}';
+		$retValue = '{"id":0,"error":"' . $err . '"}';
 		sendResultInfoAsJson( $retValue );
 	}
 
-	function returnWithInfo( $firstName, $lastName, $id )
+	function returnWithInfo( $id )
 	{
-		$retValue = '{"id":' . $id . ',"firstName":"' . $firstName . '","lastName":"' . $lastName . '","error":""}';
+		$retValue = '{"id":' . $id . ',"error":""}';
 		sendResultInfoAsJson( $retValue );
 	}
 ?>
