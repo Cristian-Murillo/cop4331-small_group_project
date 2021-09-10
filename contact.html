@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, intial-scale=1">
+
+    <title>Contacts-R-us</title>
+    <!--Change title when name comes-->
+
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script type="text/javascript" src="js/code.js"></script>
+</head>
+
+<body onload="welcoming();">
+    <header>
+        <h2><a id="link" href="index.html">Contacts-R-Us</a></h2>
+    </header>
+    <p class="big"></p>
+<div id="accessUIDiv">
+	
+    <div class="index__text">Manage your contacts</div>
+    <p class="big"></p>
+	<input type="text" class="input__fields" id="searchText" placeholder=" Contact To Search For"/>
+    <br />
+	<button type="button" id="searchContactButton" class="manageButtons" onclick="searchContact();"> Search </button><br />
+	<span id="contactSearchResult"></span>
+	<p id="contactList">
+	</p><br />
+  <form>
+	<input type="text" class="input__fields" id="addFirstName" placeholder=" First Name">
+    <input type="text" class="input__fields" id="addLastName" placeholder=" Last Name">
+    <input maxLength = "12" type="tel" class="input__fields" id="addPhoneNumber" placeholder="(###)-###-####" pattern = "[0-9]{3} [0-9]{3} [0-9]{4}" required>
+    <input type="text" class="input__fields" id="addEmail" placeholder=" E-mail"><br />
+	<button type="submit" id="addContactButton" class="manageButtons" onclick="addContact();"> Add Contact </button><br />
+</form>
+  <span id="contactAddResult"></span><br />
+
+    <p class="big"></p>
+    <input type="text" class="input__fields" id="contactText" placeholder=" Contact To Delete"><br />
+	<button type="button" id="deleteContactButton" class="manageButtons" onclick="deleteContact();"> Delete Contact </button><br />
+	<span id="contactDeleteResult"></span><br />
+
+    <div id="loggedInDiv">
+        <span id="userName"></span><br />
+
+        <p class="big"></p>
+        <button type="button" id="logoutButton" class="buttons" onclick="doLogout();"> Log Out </button>
+    </div>
+</div>
+
+</body>
+</html>
