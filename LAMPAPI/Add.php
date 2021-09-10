@@ -6,10 +6,10 @@
 	$inData = getRequestInfo();
 
 	//$UserId = $inData["UserId"];
-	$FirstName = $inData["addFirstName"];
-	$LastName = $inData["addLastName"];
-	$Email = $inData["addEmail"];
-	$PhoneNumber = $inData["addPhoneNumber"];
+	$FirstName = "";//$inData["addFirstName"];
+	$LastName = "";//$inData["addLastName"];
+	$Email = "";//$inData["addEmail"];
+	$PhoneNumber = "";//$inData["addPhoneNumber"];
 
 	$conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "ContactManager");
 	if ($conn->connect_error)
