@@ -6,10 +6,10 @@
 	$inData = getRequestInfo();
 
 	//$UserId = $inData["UserId"];
-	$FirstName = "";//$inData["addFirstName"];
-	$LastName = "";//$inData["addLastName"];
-	$Email = "";//$inData["addEmail"];
-	$PhoneNumber = "";//$inData["addPhoneNumber"];
+	$ContactFirstName = $inData["addFirstName"];
+	$ContactLastName = $inData["addLastName"];
+	$Email = $inData["addEmail"];
+	$Phone = $inData["addPhoneNumber"];
 
 	$conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "ContactManager");
 	if ($conn->connect_error)
@@ -18,26 +18,42 @@
 	}
 	else
  	{
-		if (empty($FirstName) || empty($LastName) || empty($Email) || empty($PhoneNumber))
+		if (empty($ContactFirstName) || empty($ContactLastName) || empty($Email) || empty($Phone))
 		{
 			returnWithError("Fill in all required fields");
 			exit();
 		}
-
-		$stmt = $conn->prepare("INSERT INTO contacts (FirstName,LastName,Email,PhoneNumber) VALUES(?,?,?,?)");
-		$stmt->bind_param("ssss", $firstName, $lastName, $email, $phoneNumber);
-		$stmt->execute();
-		$stmt->close();
-		$conn->close();
-		returnWithError("");
+		if (createContact($conn, $inData["addFirstName"], $inData["addLastName"], $inData["addEmail"], $inData["addPhoneNumber"]))
+		{
+			$contactInfo = getContactInfo($conn, $ContactFirstName, $ContactLastName);
+			returnWithInfo($contactInfo["ID"]);
+		}
+		else
+		{
+			returnWithError("Error creating contact");
+			exit();
+		}
 	}
 
+	/*
 	function checkIfContactExists($conn, $userID, $firstName, $lastName, $email, $phoneNumber)
 	{
 		$result = $conn->query("SELECT * FROM contacts WHERE userID = $userID
 			 AND firstName = $firstName AND lastName = $lastName AND email = $email
 			 AND phoneNumber = $phoneNumber");
 		return $result->num_rows == 0;
+	}
+	*/
+	function getContactInfo($conn, $ContactFirstName, $ContactLastName)
+	{
+		$result = $conn->query("SELECT ContactFirstName, ContactLastName, Email, Phone FROM contacts WHERE ContactFirstName = '$ContactFirstName' AND ContactLastName = '$ContactLastName'") or die($conn->error);
+		return $result->fetch_assoc();
+	}
+
+	function createContact($conn, $addFirstName, $addLastName, $addEmail, $addPhoneNumber)
+	{
+		$result = $conn->query("INSERT INTO contacts (FirstName, LastName, Email, Phone) VALUES ('$addFirstName','$addLastName','$addEmail','$addPhoneNumber')");
+		return $result;
 	}
 
 	function getRequestInfo()
