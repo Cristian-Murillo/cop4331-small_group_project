@@ -18,10 +18,10 @@
 	}
 	else
  	{
-		if (checkIfContactExists($conn, $inData["UserID"], $inData["ContactFirstName"],
-			$inData["ContactLastName"], $inData["Email"], $inData["Phone"]));
-			returnWithError("Contact exists");
-		$stmt = $conn->prepare("INSERT into contacts (userID,firstName,lastName,email,phoneNumber) VALUES(?,?,?,?,?)");
+		/*if (checkIfContactExists($conn, $inData["UserID"], $inData["ContactFirstName"],
+		$inData["ContactLastName"], $inData["Email"], $inData["Phone"]));
+			returnWithError("Contact exists");*/
+		$stmt = $conn->prepare("INSERT INTO contacts (userID,firstName,lastName,email,phoneNumber) VALUES(?,?,?,?,?)");
 		$stmt->bind_param("sssss", $userId, $firstName, $lastName, $email, $phoneNumber);
 		$stmt->execute();
 		$stmt->close();
