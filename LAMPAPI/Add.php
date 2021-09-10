@@ -52,7 +52,7 @@
 
 	function createContact($conn, $addFirstName, $addLastName, $addEmail, $addPhoneNumber)
 	{
-		$result = $conn->query("INSERT INTO contacts (FirstName, LastName, Email, Phone) VALUES ('$addFirstName','$addLastName','$addEmail','$addPhoneNumber')");
+		$result = $conn->query("INSERT INTO contacts (ContactFirstName, ContactLastName, Email, Phone) VALUES ('$addFirstName','$addLastName','$addEmail','$addPhoneNumber')");
 		return $result;
 	}
 
@@ -71,6 +71,12 @@
 	{
 		$retValue = '{"error":"' . $err . '"}';
 		sendResultInfoAsJson( $retValue );
+	}
+
+	function returnWithInfo($id)
+	{
+		$retValue = '{"id":' . $id . ',"error":""}';
+		sendResultInfoAsJson($retValue);
 	}
 
 ?>
