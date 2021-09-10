@@ -5,7 +5,7 @@
 
 	$inData = getRequestInfo();
 
-	//$UserId = $inData["UserId"];
+	$UserId = $inData["id"];
 	$ContactFirstName = $inData["addFirstName"];
 	$ContactLastName = $inData["addLastName"];
 	$Email = $inData["addEmail"];
@@ -23,7 +23,7 @@
 			returnWithError("Fill in all required fields");
 			exit();
 		}
-		if (createContact($conn, $inData["addFirstName"], $inData["addLastName"], $inData["addEmail"], $inData["addPhoneNumber"]))
+		if (createContact($conn, $inData["id"], $inData["addFirstName"], $inData["addLastName"], $inData["addEmail"], $inData["addPhoneNumber"]))
 		{
 			$contactInfo = getContactInfo($conn, $ContactFirstName, $ContactLastName);
 			returnWithInfo($contactInfo["ID"]);
@@ -50,9 +50,9 @@
 		return $result->fetch_assoc();
 	}
 
-	function createContact($conn, $addFirstName, $addLastName, $addEmail, $addPhoneNumber)
+	function createContact($conn, $id, $addFirstName, $addLastName, $addEmail, $addPhoneNumber)
 	{
-		$result = $conn->query("INSERT INTO contacts (ContactFirstName, ContactLastName, Email, Phone) VALUES ('$addFirstName','$addLastName','$addEmail','$addPhoneNumber')");
+		$result = $conn->query("INSERT INTO contacts (UserId, ContactFirstName, ContactLastName, Email, Phone) VALUES ('$id', '$addFirstName','$addLastName','$addEmail','$addPhoneNumber')");
 		return $result;
 	}
 
