@@ -1,0 +1,163 @@
+body{
+    background: rgb(18, 20, 24);
+}
+a{
+    color: rgb(1, 141, 87);
+    text-decoration: none;
+    font-family: 'Andale', monospace;
+    border-radius: 15px;
+    margin: 10%;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+
+
+
+
+a:hover{
+    /* text-decoration: underline; */
+    color: rgb(131, 187, 150);
+}
+.LoginDiv{
+    font-size: 30px;
+    width: 30%;
+    border-radius: 15px;
+    margin: auto;
+    margin-top: 10%;
+    padding: 25px;
+    background: #56ad77;
+    font-family: 'Lucida Console', monospace;
+    color: rgb(31, 31, 31);
+    font-weight: normal;
+}
+
+.log__container {
+    align-items: center;
+
+}
+
+.header__container {
+    margin: 0;
+    height: 80px;
+    justify-content: space-around;
+}
+
+.header__side {
+    display: flex;
+    align-items: center;
+    margin-left: 70%;
+}
+
+.log__text {
+    display: flex;
+    align-items: center;
+    /*width: 50%;*/
+    font-size: 35x;
+}
+
+.index__text {
+    display: flex;
+    align-items: center;
+    /*width: 50%;*/
+    font-size: 50x;
+    font-weight: normal;
+}
+
+br {
+    display: block;
+    margin: 5px 0;
+ }
+
+
+p.small{
+    line-height: 0.1;
+}
+
+p.big{
+    line-height: 1;
+}
+
+.input__fields {
+    border:0;
+    border-radius: 2px;
+}
+
+.name__fields {
+    border:0;
+    border-radius: 2px;
+}
+
+.buttons
+{
+    font-size: 20px;
+    border-radius: 5px;
+    width: auto;
+    padding: 9px;
+    height: 40px;
+    align-items: center;
+    font-family: 'Lucida Console', monospace;
+    color: rgb(189, 207, 196);
+    background-color: rgb(23, 92, 109);
+    border:0;
+}
+
+.manageButtons
+{
+    font-size: 15px;
+    border-radius: 5px;
+    width: auto;
+    padding: 9px;
+    height: 27px;
+    align-items: center;
+    font-family: 'Lucida Console', monospace;
+    color: rgb(189, 207, 196);
+    background-color: rgb(23, 92, 109);
+    border:0;
+    display: inline-flex;
+}
+
+.buttons:hover{
+    /* text-decoration: underline; */
+    color: rgb(103, 119, 107);
+}
+
+.manageButtons:hover{
+    /* text-decoration: underline; */
+    color: rgb(103, 119, 107);
+}
+
+input[type="text"],input[type="password"],input[type = "tel"]{
+    border-radius: 5px;
+    font-size: 17px;
+    width: 40%;
+    height: 25px;
+    padding: 7px;
+    background: rgb(70, 72, 75);
+    color: rgb(227, 255, 245);
+    font-family: 'Lucida Console', monospace;
+    border-top-style: hidden;
+    border-right-style: hidden;
+    border-left-style: hidden;
+    border-bottom-style: groove;
+}
+
+#loginResult{
+    font-size: 20px;
+    color: red;
+}
+#registerResult{
+    font-size: 20px;
+    color: red;
+}
+#accessUIDiv{
+    background: #56ad77;
+    width: 50%;
+    margin-left: 25%;
+    border-radius: 15px;
+    padding: 25px;
+    font-size: 30px;
+    font-family: 'Lucida Console', monospace;
+    color: rgb(31, 31, 31);
+    font-weight: normal;
+}
