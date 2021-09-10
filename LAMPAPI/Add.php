@@ -5,11 +5,11 @@
 
 	$inData = getRequestInfo();
 
-	$userId = $inData["UserId"];
-	$firstName = $inData["ContactFirstName"];
-	$lastName = $inData["ContactLastName"];
-	$email = $inData["Email"];
-	$phoneNumber = $inData["Phone"];
+	//$UserId = $inData["UserId"];
+	$FirstName = $inData["addFirstName"];
+	$LastName = $inData["addLastName"];
+	$Email = $inData["addEmail"];
+	$PhoneNumber = $inData["addPhoneNumber"];
 
 	$conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "ContactManager");
 	if ($conn->connect_error)
@@ -18,11 +18,14 @@
 	}
 	else
  	{
-		/*if (checkIfContactExists($conn, $inData["UserID"], $inData["ContactFirstName"],
-		$inData["ContactLastName"], $inData["Email"], $inData["Phone"]));
-			returnWithError("Contact exists");*/
-		$stmt = $conn->prepare("INSERT INTO contacts (userID,firstName,lastName,email,phoneNumber) VALUES(?,?,?,?,?)");
-		$stmt->bind_param("sssss", $userId, $firstName, $lastName, $email, $phoneNumber);
+		if (empty($FirstName) || empty($LastName) || empty($Email) || empty($PhoneNumber))
+		{
+			returnWithError("Fill in all required fields");
+			exit();
+		}
+
+		$stmt = $conn->prepare("INSERT INTO contacts (FirstName,LastName,Email,PhoneNumber) VALUES(?,?,?,?)");
+		$stmt->bind_param("ssss", $firstName, $lastName, $email, $phoneNumber);
 		$stmt->execute();
 		$stmt->close();
 		$conn->close();
