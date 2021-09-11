@@ -69,8 +69,13 @@ function doRegister() {
 	lastName = document.getElementById("lastName").value;
 	var login = document.getElementById("user").value;
 	var password = document.getElementById("password").value;
+	var verifyPass = document.getElementById("varpassword").value;
 
-	var tmp = { firstName: firstName, lastName: lastName, login: login, password: password };
+	if(password != verifyPass)
+	{
+		return;
+	}
+	var tmp = { firstName: firstName, lastName: lastName, login: login, password: password,  passwordConfirm: verifyPass};
 	var jsonPayload = JSON.stringify(tmp);
 
 	var url ='/LAMPAPI/Register.' + extension;
@@ -89,7 +94,6 @@ function doRegister() {
 	catch (err) {
 		document.getElementById("registerResult").innerHTML = err.message;
 	}
-	//i think this is how you add to
 }
 
 function saveCookie() {

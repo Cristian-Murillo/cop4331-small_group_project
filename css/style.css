@@ -152,12 +152,25 @@ input[type="text"],input[type="password"],input[type = "tel"]{
 }
 #accessUIDiv{
     background: #56ad77;
-    width: 50%;
-    margin-left: 25%;
+    width: 90%;
     border-radius: 15px;
     padding: 25px;
     font-size: 30px;
     font-family: 'Lucida Console', monospace;
     color: rgb(31, 31, 31);
     font-weight: normal;
+}
+
+#searchContent{
+    background: #56ad77;
+    width: 400px;
+    border-radius: 25px;
+    padding: 10px;
+    text-align: center;
+}
+#addContent{
+    background: #56ad77;
+    width: 400px;
+    border-radius: 25px;
+    padding: 10px;
 }
