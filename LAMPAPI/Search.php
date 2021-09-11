@@ -25,7 +25,7 @@
 
 	function getRowsContainingString($conn, $str)
 	{
-		$result = $conn->query("SELECT * FROM contacts WHERE ContactFirstName LIKE '%$str%' OR ContactLastName LIKE '%$str%' OR Email LIKE '%$str%' OR Phone LIKE '%$str%'");
+		$result = $conn->query("SELECT ContactFirstName, ContactLastName, Email, Phone, ContactDateCreated FROM contacts WHERE ContactFirstName LIKE '%$str%' OR ContactLastName LIKE '%$str%' OR Email LIKE '%$str%' OR Phone LIKE '%$str%'");
 		$rows = array();
 		$index = 0;
 		while ($record = $result->fetch_assoc()) {
