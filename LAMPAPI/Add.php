@@ -46,7 +46,7 @@
 	*/
 	function getContactInfo($conn, $ContactFirstName, $ContactLastName)
 	{
-		$result = $conn->query("SELECT ContactFirstName, ContactLastName, Email, Phone FROM contacts WHERE ContactFirstName = '$ContactFirstName' AND ContactLastName = '$ContactLastName'") or die($conn->error);
+		$result = $conn->query("SELECT ID, ContactFirstName, ContactLastName, Email, Phone FROM contacts WHERE ContactFirstName = '$ContactFirstName' AND ContactLastName = '$ContactLastName'") or die($conn->error);
 		return $result->fetch_assoc();
 	}
 
