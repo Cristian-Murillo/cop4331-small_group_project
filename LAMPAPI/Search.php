@@ -1,13 +1,7 @@
 <?php
-
-	//ini_set('display_errors', 'On');
-	//ini_set("error_log", "/tmp/php.log");
-	//error_reporting(E_ALL);
-
 	$inData = getRequestInfo();
 
-	$searchResults = "";
-	$searchCount = 0;
+	$str = $inData["search"];
 
 	$conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "ContactManager");
 	if ($conn->connect_error)
@@ -16,35 +10,29 @@
 	}
 	else
 	{
-		$stmt = $conn->prepare("SELECT * FROM contacts WHERE ContactFirstName LIKE ? OR ContactLastName LIKE ?");
-		$firstName = "%" . $inData["search"] . "%";
-		$lastName = "%" . $inData["search"] . "%";
-		$stmt->bind_param("ss", $firstName, $lastName);
-		$stmt->execute();
+		$rows = getRowsContainingString($conn, $str);
+		$numResults = count($rows);
 
-		$result = $stmt->get_result();
-
-		while($row = $result->fetch_assoc())
-		{
-			if( $searchCount > 0 )
-			{
-				$searchResults .= ",";
-			}
-			$searchCount++;
-			$searchResults .= '"' . $row["ContactFirstName"] . ' ' . $row["ContactLastName"] . ' ' . $row["Email"] . ' ' . $row["Phone"] . '\n"';
+		if ($numResults < 1) {
+			returnWithError("No records found");
+			exit();
+		} else {
+			returnWithInfo($rows, $numResults);
 		}
 
-		if( $searchCount == 0 )
-		{
-			returnWithError( "No Records Found" );
-		}
-		else
-		{
-			returnWithInfo( $searchResults );
-		}
-
-		$stmt->close();
 		$conn->close();
+	}
+
+	function getRowsContainingString($conn, $str)
+	{
+		$result = $conn->query("SELECT * FROM contacts WHERE ContactFirstName LIKE '%$str%' OR ContactLastName LIKE '%$str%' OR Email LIKE '%$str%' OR Phone LIKE '%$str%'");
+		$rows = array();
+		$index = 0;
+		while ($record = $result->fetch_assoc()) {
+			$rows[$index] = $record;
+			$index++;
+		}
+		return $rows;
 	}
 
 	function getRequestInfo()
@@ -60,14 +48,14 @@
 
 	function returnWithError( $err )
 	{
-		$retValue = '{"id":0,"firstName":"","lastName":"","error":"' . $err . '"}';
+		$retValue = '{"results":[],"numResults":0,"error":"' . $err . '"}';
 		sendResultInfoAsJson( $retValue );
 	}
 
-	function returnWithInfo( $searchResults )
+	function returnWithInfo($searchResultsArr, $numResults)
 	{
-		$retValue = '{"results":[' . $searchResults . '],"error":""}';
+		$searchResultsJSON = json_encode($searchResultsArr);
+		$retValue = '{"results":' . $searchResultsJSON . ',"numResults":' . $numResults . ',"error":""}';
 		sendResultInfoAsJson( $retValue );
 	}
-
 ?>
