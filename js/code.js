@@ -64,6 +64,11 @@ function welcoming(){
 	document.getElementById("welcome").innerHTML = "Welcome " + firstName + " " + lastName;
 }
 
+function doSignIn() {
+	window.location.href = "login.html";
+}
+
+
 function doRegister() {
 	firstName = document.getElementById("firstName").value;
 	lastName = document.getElementById("lastName").value;
