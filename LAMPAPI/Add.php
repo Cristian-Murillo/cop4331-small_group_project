@@ -23,10 +23,17 @@
 			returnWithError("Fill in all required fields");
 			exit();
 		}
+
+		if (checkIfContactExists($conn, $UserId, $ContactFirstName, $ContactLastName, $Email, $Phone)) {
+			returnWithError("Contact already exists");
+			exit();
+		}
+
 		if (createContact($conn, $inData["id"], $inData["addFirstName"], $inData["addLastName"], $inData["addEmail"], $inData["addPhoneNumber"]))
 		{
 			$contactInfo = getContactInfo($conn, $ContactFirstName, $ContactLastName);
 			returnWithInfo($contactInfo["ID"]);
+			exit();
 		}
 		else
 		{
@@ -35,15 +42,15 @@
 		}
 	}
 
-	/*
+
 	function checkIfContactExists($conn, $userID, $firstName, $lastName, $email, $phoneNumber)
 	{
-		$result = $conn->query("SELECT * FROM contacts WHERE userID = $userID
-			 AND firstName = $firstName AND lastName = $lastName AND email = $email
-			 AND phoneNumber = $phoneNumber");
-		return $result->num_rows == 0;
+		$result = $conn->query("SELECT * FROM contacts WHERE UserID = '$userID'
+			 AND ContactFirstName = '$firstName' AND ContactLastName = '$lastName' AND Email = '$email'
+			 AND Phone = '$phoneNumber'");
+		return $result->num_rows > 0;
 	}
-	*/
+
 	function getContactInfo($conn, $ContactFirstName, $ContactLastName)
 	{
 		$result = $conn->query("SELECT ID, ContactFirstName, ContactLastName, Email, Phone FROM contacts WHERE ContactFirstName = '$ContactFirstName' AND ContactLastName = '$ContactLastName'") or die($conn->error);
