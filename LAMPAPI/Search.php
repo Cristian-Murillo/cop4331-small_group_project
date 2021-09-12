@@ -1,7 +1,8 @@
 <?php
 	$inData = getRequestInfo();
 
-	$str = $inData["search"];
+	$id = $inData["id"];
+	$searchStr = $inData["search"];
 
 	$conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "ContactManager");
 	if ($conn->connect_error)
@@ -10,10 +11,10 @@
 	}
 	else
 	{
-		$splitSearchArr = explode(" ", $str);
-		$rows = getRowsContainingString($conn, $splitSearchArr[0]);
+		$splitSearchArr = explode(" ", $searchStr);
+		$rows = getRowsContainingString($conn, $id, $splitSearchArr[0]);
 		for ($i=1; $i < count($splitSearchArr); $i++) {
-			$rows = array_uintersect($rows, getRowsContainingString($conn, $splitSearchArr[$i]), 'index_compare_func');
+			$rows = array_uintersect($rows, getRowsContainingString($conn, $id, $splitSearchArr[$i]), 'index_compare_func');
 		}
 
 		$numResults = count($rows);
@@ -33,11 +34,15 @@
 		return $a["ID"] - $b["ID"];
 	}
 
-	function getRowsContainingString($conn, $str)
+	function getRowsContainingString($conn, $id, $str)
 	{
-		$result = $conn->query("SELECT ID, ContactFirstName, ContactLastName, Email, Phone, ContactDateCreated
-			FROM contacts WHERE ContactFirstName LIKE '%$str%' OR ContactLastName LIKE '%$str%'
-			OR Email LIKE '%$str%' OR Phone LIKE '%$str%'");
+		$result = $conn->query("SELECT ID, ContactFirstName, ContactLastName, Email, Phone, ContactDateCreated, UserID FROM contacts
+			WHERE UserID = '$id'
+			AND (ContactFirstName LIKE '%$str%'
+				OR ContactLastName LIKE '%$str%'
+				OR Email LIKE '%$str%'
+				OR Phone LIKE '%$str%')
+			");
 		$rows = array();
 		$index = 0;
 		while ($record = $result->fetch_assoc()) {
