@@ -13,7 +13,7 @@
 		$splitSearchArr = explode(" ", $str);
 		$rows = getRowsContainingString($conn, $splitSearchArr[0]);
 		for ($i=1; $i < count($splitSearchArr); $i++) {
-			$rows = array_intersect_assoc($rows, getRowsContainingString($conn, $splitSearchArr[$i]));
+			$rows = array_uintersect($rows, getRowsContainingString($conn, $splitSearchArr[$i]), 'index_compare_func');
 		}
 
 		$numResults = count($rows);
@@ -28,9 +28,14 @@
 		$conn->close();
 	}
 
+	function index_compare_func($a, $b)
+	{
+		return $a["ID"] - $b["ID"];
+	}
+
 	function getRowsContainingString($conn, $str)
 	{
-		$result = $conn->query("SELECT ContactFirstName, ContactLastName, Email, Phone, ContactDateCreated
+		$result = $conn->query("SELECT ID, ContactFirstName, ContactLastName, Email, Phone, ContactDateCreated
 			FROM contacts WHERE ContactFirstName LIKE '%$str%' OR ContactLastName LIKE '%$str%'
 			OR Email LIKE '%$str%' OR Phone LIKE '%$str%'");
 		$rows = array();
