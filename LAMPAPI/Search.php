@@ -10,7 +10,12 @@
 	}
 	else
 	{
-		$rows = getRowsContainingString($conn, $str);
+		$splitSearchArr = explode(" ", $str);
+		$rows = getRowsContainingString($conn, $splitSearchArr[0]);
+		for ($i=1; $i < count($splitSearchArr); $i++) {
+			$rows = array_intersect_assoc($rows, getRowsContainingString($conn, $splitSearchArr[$i]));
+		}
+
 		$numResults = count($rows);
 
 		if ($numResults < 1) {
