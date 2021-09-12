@@ -5,16 +5,12 @@
 
 	$inData = getRequestInfo();
 
-	$UserId = $inData["id"];
+	$UserID = $inData["UserID"];
+  $ID = $inData["ID"];
 	$ContactFirstName = $inData["FirstName"];
 	$ContactLastName = $inData["LastName"];
 	$Email = $inData["Email"];
 	$Phone = $inData["PhoneNumber"];
-
-  $uFirstName = $inData["uFirstName"];
-  $uLastName = $inData["uLastName"];
-  $uEmail = $inData["uEmail"];
-  $uPhoneNumber = $inData["uPhoneNumber"];
 
 	$conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "ContactManager");
 	if ($conn->connect_error)
@@ -23,18 +19,18 @@
 	}
 	else
  	{
-		if (empty($ContactFirstName) || empty($ContactLastName) || empty($Email) || empty($Phone) || empty($uFirstName) || empty($uLastName) || empty($uEmail) || empty($uPhoneNumber))
+		if (empty($ContactFirstName) || empty($ContactLastName) || empty($Email) || empty($Phone))
 		{
 			returnWithError("Fill in all required fields");
 			exit();
 		}
 
-		if (!checkIfContactExists($conn, $UserId, $ContactFirstName, $ContactLastName, $Email, $Phone)) {
+		if (!checkIfContactExists($conn, $UserID, $ID)) {
 			returnWithError("Contact does not exist");
 			exit();
 		}
 
-		if (updateContact($conn, $inData["id"], $inData["FirstName"], $inData["LastName"], $inData["Email"], $inData["PhoneNumber"], $inData["uFirstName"], $inData["uLastName"], $inData["uEmail"], $inData["uPhoneNumber"]))
+		if (updateContact($conn, $inData["UserID"], $inData["ID"], $inData["FirstName"], $inData["LastName"], $inData["Email"], $inData["PhoneNumber"]))
 		{
 			$contactInfo = getContactInfo($conn, $ContactFirstName, $ContactLastName);
 			returnWithInfo($contactInfo["ID"]);
@@ -48,11 +44,9 @@
 	}
 
 
-	function checkIfContactExists($conn, $userID, $firstName, $lastName, $email, $phoneNumber)
+	function checkIfContactExists($conn, $UserID, $ID)
 	{
-		$result = $conn->query("SELECT * FROM contacts WHERE UserID = '$userID'
-			 AND ContactFirstName = '$firstName' AND ContactLastName = '$lastName' AND Email = '$email'
-			 AND Phone = '$phoneNumber'");
+		$result = $conn->query("SELECT * FROM contacts WHERE UserID = '$UserID' AND ID = '$ID'");
 		return $result->num_rows > 0;
 	}
 
@@ -62,12 +56,11 @@
 		return $result->fetch_assoc();
 	}
 
-	function updateContact($conn, $id, $FirstName, $LastName, $Email, $PhoneNumber, $uFirstName, $uLastName, $uEmail, $uPhoneNumber)
+	function updateContact($conn, $UserID, $ID, $FirstName, $LastName, $Email, $PhoneNumber)
 	{
-		$result = $conn->query("UPDATE contacts SET ContactFirstName = '$uFirstName',
-       ContactLastName = '$uLastName', Email = '$uEmail', Phone = '$uPhoneNumber'
-       WHERE UserID = '$id' AND ContactFirstName = '$FirstName' AND
-       ContactLastName = '$LastName' AND Email = '$Email' AND Phone = '$PhoneNumber'");
+		$result = $conn->query("UPDATE contacts SET ContactFirstName = '$FirstName',
+       ContactLastName = '$LastName', Email = '$Email', Phone = '$PhoneNumber'
+       WHERE UserID = '$UserID' AND ID = '$ID'");
 		return $result;
 	}
 
