@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Contacts-R-Us</title>
+    <!--Change title when name comes-->
+
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script type="text/javascript" src="js/code.js"></script>
+</head>
+
+<body>
+    <header>
+        <div class="header__container">
+            <h2><a id="link" href="index.html">Contacts-R-Us</a></h2>
+        </div>
+
+        <div class="header__side">
+
+        </div>
+
+    </header>
+
+
+    <div class="LoginDiv"><!--Keep div like login for now-->
+        <span id="inner-title">Create an Account</span>
+        <br />
+        <br />
+
+        <input type="text" class="name__fields" id="firstName" placeholder="  First Name" required/>
+        <input type="text" class="name__fields" id="lastName" placeholder="  Last Name" required/><br />
+        <br />
+        <input type="text" class="input__fields" id="user" placeholder="  Username" required/>
+        <input type="password" class="input__fields" id="password" placeholder="  Password" required/><br /><br />
+        <input type="password" class="input__fields" id="varpassword" placeholder=" Verify Password" required/><br />
+        <br />
+        <p id = "PasswordError" style="color: red;">
+        </p>
+        <button type="button" id="registerButton" class="buttons" onclick="doRegister();"> Register </button>
+
+        <span id="registerResult"></span>
+    </div>
+</body>
+
+</html>
