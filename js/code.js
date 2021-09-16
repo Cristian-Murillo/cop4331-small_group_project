@@ -43,8 +43,6 @@ function doLogin() {
 	catch (err) {
 		document.getElementById("loginResult").innerHTML = err.message;
 	}
-<<<<<<< Updated upstream
-=======
 }
 // Keeping function just in case
 function welcoming(){
@@ -65,17 +63,10 @@ function welcoming(){
 	}
 	document.getElementById("welcome").innerHTML = "Welcome " + firstName + " " + lastName;
 }
->>>>>>> Stashed changes
 
-}
+
 
 function doRegister() {
-<<<<<<< Updated upstream
-	var user = document.getElementById("user").value;
-	var pass = document.getElementById("pass").value;
-	var tmp = { login: user, password: pass };
-	//	var tmp = {login:login,password:hash};
-=======
 	firstName = document.getElementById("firstName").value;
 	lastName = document.getElementById("lastName").value;
 	var login = document.getElementById("user").value;
@@ -88,7 +79,6 @@ function doRegister() {
 		return;
 	}
 	var tmp = { firstName: firstName, lastName: lastName, login: login, password: password,  passwordConfirm: verifyPass};
->>>>>>> Stashed changes
 	var jsonPayload = JSON.stringify(tmp);
 
 	var url = urlBase + '/Login.' + extension;
@@ -164,15 +154,6 @@ function doLogout() {
 }
 
 function addContact() {
-<<<<<<< Updated upstream
-	var newContact = document.getElementById("contactText").value;
-	document.getElementById("contactAddResult").innerHTML = "";
-
-	var tmp = { contact: newContact, userId, userId };
-	var jsonPayload = JSON.stringify(tmp);
-
-	var url = urlBase + '/AddContact.' + extension;
-=======
 	var addFirst = document.getElementById("addFirstName").value;
 	var addLast = document.getElementById("addLastName").value;
 	var addEmail = document.getElementById("addEmail").value;
@@ -198,7 +179,6 @@ function addContact() {
 	var jsonPayload = JSON.stringify(tmp);
 
 	var url = '/LAMPAPI/Add.' + extension;
->>>>>>> Stashed changes
 
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
@@ -214,8 +194,6 @@ function addContact() {
 	catch (err) {
 		document.getElementById("contactAddResult").innerHTML = err.message;
 	}
-<<<<<<< Updated upstream
-=======
 	searchContact();
 }
 function onLoad() {
@@ -237,7 +215,6 @@ function onLoad() {
 	searchContact();
 }
 function TEST() {
->>>>>>> Stashed changes
 
 	alert(firstName + lastName + userId);
 }
