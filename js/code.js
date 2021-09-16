@@ -76,8 +76,8 @@ function doRegister() {
 	var password = document.getElementById("password").value;
 	var verifyPass = document.getElementById("varpassword").value;
 
-	if(password != verifyPass)
-	{
+	if(password != verifyPass) {	
+		document.getElementById("PasswordError").innerHTML = "Password doesn't match";
 		return;
 	}
 	var tmp = { firstName: firstName, lastName: lastName, login: login, password: password,  passwordConfirm: verifyPass};
@@ -91,13 +91,22 @@ function doRegister() {
 	try {
 		xhr.onreadystatechange = function () {
 			if (this.readyState == 4 && this.status == 200) {
-				document.getElementById("registerResult").innerHTML = "Account has been added";
+				var jsonObject = JSON.parse(xhr.responseText);
+				userId = jsonObject.id;
+				if (userId > 1) {
+					document.getElementById("loginResult").innerHTML = "Account already exist";
+					return;
+				}
+				firstName = jsonObject.firstName;
+				lastName = jsonObject.lastName;
+				saveCookie();
+				window.location.href = "contact.html";
 			}
 		};
 		xhr.send(jsonPayload);
 	}
 	catch (err) {
-		document.getElementById("registerResult").innerHTML = err.message;
+		document.getElementById("registerResult").innerHTML = err.message; // registerResult may be loginResult
 	}
 }
 
@@ -151,7 +160,7 @@ function addContact() {
 	// GHETTO format checker ;)
 	for(var i = 0; i < addPhone.length; i++)
     {
-        if( (addPhone[3] == " " && addPhone[7] == " ") && !isNaN(addPhone[i]))
+        if( (!isNaN(addPhone[i])) )
         {
         }else{
             return;
@@ -159,44 +168,67 @@ function addContact() {
 
     }
 
-	addPhone = "(" + addPhone[0]+addPhone[1]+addPhone[2]+")"+addPhone[4]+addPhone[5]+addPhone[6]
-							+" "+addPhone[8]+addPhone[9]+addPhone[10]+addPhone[11];
+	// addPhone = "(" + addPhone[0]+addPhone[1]+addPhone[2]+")"+addPhone[4]+addPhone[5]+addPhone[6]
+	// 						+" "+addPhone[8]+addPhone[9]+addPhone[10]+addPhone[11];
 
-	var tmp = { userId: userId, firstName: addFirst, lastName: addLast, email: addEmail,
-		 					phoneNumber: addPhone};
+	var tmp = { id: userId, addFirstName: addFirst, addLastName: addLast, addEmail: addEmail,
+		 					addPhoneNumber: addPhone};
 
-	// var jsonPayload = JSON.stringify(tmp);
-	//
-	// var url = '/LAMPAPI/Add.' + extension;
-	//
-	// var xhr = new XMLHttpRequest();
-	// xhr.open("POST", url, true);
-	// xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-	// try {
-	// 	xhr.onreadystatechange = function () {
-	// 		if (this.readyState == 4 && this.status == 200) {
-	// 			document.getElementById("contactAddResult").innerHTML = "Contact has been added";
-	// 		}
-	// 	};
-	// 	xhr.send(jsonPayload);
-	// }
-	// catch (err) {
-	// 	document.getElementById("contactAddResult").innerHTML = err.message;
-	// }
+	var jsonPayload = JSON.stringify(tmp);
+	
+	var url = '/LAMPAPI/Add.' + extension;
+	
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try {
+		xhr.onreadystatechange = function () {
+			if (this.readyState == 4 && this.status == 200) {
+				document.getElementById("contactAddResult").innerHTML = "Contact has been added";
+			}
+		};
+		xhr.send(jsonPayload);
+	}
+	catch (err) {
+		document.getElementById("contactAddResult").innerHTML = err.message;
+	}
+	searchContact();
+}
 
+function onLoad() {
+	var data = document.cookie;
+	var splits = data.split(",");
+	for (var i = 0; i < splits.length; i++) {
+		var thisOne = splits[i].trim();
+		var tokens = thisOne.split("=");
+		if (tokens[0] == "firstName") {
+			firstName = tokens[1];
+		}
+		else if (tokens[0] == "lastName") {
+			lastName = tokens[1];
+		}
+		else if (tokens[0] == "userId") {
+			userId = parseInt(tokens[1].trim());
+		}
+	}
+	searchContact();
+}
+
+function TEST() {
+	alert(firstName + lastName + userId);
 }
 
 function searchContact() {
 	var srch = document.getElementById("searchText").value;
 	document.getElementById("contactSearchResult").innerHTML = "";
-
+	var button;
 	var contactList = "";
 
-	var tmp = { search: srch, userId: userId };
+	var tmp = { search: srch, id: userId };
 	var jsonPayload = JSON.stringify(tmp);
 
-	var url = urlBase + '/SearchContacts.' + extension;
-
+	var url = '/LAMPAPI/Search.' + extension;
+	alert(userId);
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
@@ -206,13 +238,35 @@ function searchContact() {
 				document.getElementById("contactSearchResult").innerHTML = "Contact(s) has been retrieved";
 				var jsonObject = JSON.parse(xhr.responseText);
 
+				var list = document.getElementById('contactSearchRes');
+				list.innerHTML = "";
+				// for (var i = 0; i < jsonObject.results.length; i++) {
+				// 	entry = document.createElement('li');
+				// 	contact = jsonObject.results[i].ContactFirstName + "  " + jsonObject.results[i].ContactLastName + " " +
+				// 	jsonObject.results[i].Email + " " + jsonObject.results[i].Phone + " ";
+				//
+				// 	// alert(contact);
+				//
+				// 	entry.appendChild(document.createTextNode(contact));
+				// 	list.appendChild(entry);
+				//
+				// 	// if (i < jsonObject.results.length - 1) {
+				// 	// 	contactList += "<br />\r\n";
+				// 	// }
+				// }
 				for (var i = 0; i < jsonObject.results.length; i++) {
-					contactList += jsonObject.results[i];
-					if (i < jsonObject.results.length - 1) {
-						contactList += "<br />\r\n";
-					}
-				}
-
+					var object = jsonObject.results[i];
+          			var entry = document.createElement('li');
+					entry.appendChild(document.createTextNode(object.ContactFirstName));
+					list.appendChild(entry);
+					var btn = document.createElement("BUTTON");       // Create a <button> element
+            	btn.fn = object.ContactFirstName;
+            	var t = document.createTextNode("Delete");       // Create a text node
+            	btn.appendChild(t);         // Append the text to <button>
+            	list.appendChild(btn);
+          		}
+				
+				// document.getElementsByTagName("ul")[1].innerHTML = list;
 				document.getElementsByTagName("p")[0].innerHTML = contactList;
 			}
 		};
