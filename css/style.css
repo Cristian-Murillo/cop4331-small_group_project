@@ -261,3 +261,47 @@ input[type="text"],input[type="password"],input[type = "tel"]{
     border-radius: 25px;
     padding: 10px;
 }
+#resultContent{
+    background: #88c5ff;
+    width: 40%;
+    border-radius: 25px;
+    margin-left: 10px;
+    padding: 20px;
+    font-size: large;
+    height: 300px;
+
+    overflow: auto;
+
+
+}
+
+::-webkit-scrollbar {
+  width: 20px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #d6dee1;
+  border-radius: 20px;
+  border: 6px solid transparent;
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #a8bbbf;
+}
+
+#editContent{
+    background: #88c5ff;
+    width: 30%;
+    border-radius: 25px;
+    margin-left: 10px;
+    padding: 20px;
+}
+
+.box{
+    display: flex;
+}
