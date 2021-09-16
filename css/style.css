@@ -5,31 +5,52 @@ h2 {
 
 body{
     background: rgb(18, 20, 24);
+
 }
 a{
     color: rgb(36, 149, 255);
     text-decoration: none;
     font-family: 'Maven Pro', sans-serif;
     border-radius: 15px;
-    margin: 10%;
+    margin-left: 10%;
     font-size: 30px;
+    
 }
-
-
-
 
 
 a:hover{
     /* text-decoration: underline; */
     color: rgb(94, 155, 212);
 }
-.LoginDiv{
+
+.HomeDiv{
     font-size: 30px;
-    width: 30%;
+    width: 20%;
     border-radius: 15px;
-    margin: auto;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: auto;
     margin-top: 10%;
     padding: 25px;
+    padding-bottom: 30px;
+    background: #88c5ff;
+    font-family: 'Maven Pro', sans-serif;
+    color: rgb(31, 31, 31);
+    font-weight: normal;
+}
+
+.LoginDiv{
+    font-size: 30px;
+    width: 25%;
+    border-radius: 15px;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: auto;
+    margin-top: 10%;
+    padding: 25px;
+    padding-bottom: 30px;
     background: #88c5ff;
     font-family: 'Maven Pro', sans-serif;
     color: rgb(31, 31, 31);
@@ -38,12 +59,13 @@ a:hover{
 
 .log__container {
     align-items: center;
-
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .header__container {
-    margin: 0;
     height: 80px;
+    margin-top: 25px;
     justify-content: space-around;
 }
 
@@ -56,16 +78,38 @@ a:hover{
 .log__text {
     display: flex;
     align-items: center;
+    vertical-align: middle;
     /*width: 50%;*/
-    font-size: 35x;
+    font-size: 32px;
+    font-weight: normal;
+    text-align: center;
+    line-height: 34px;
+    justify-content: center;
 }
 
 .index__text {
     display: flex;
-    align-items: center;
+    vertical-align: middle;
     /*width: 50%;*/
-    font-size: 50x;
+    font-size: 32px;
     font-weight: normal;
+    text-align: center;
+    line-height: 34px;
+    justify-content: center;
+}
+
+.or_text {
+    display: flex;
+    vertical-align: middle;
+    width: 100%;
+    font-size: 20px;
+    font-weight: normal;
+    text-align: center;
+    align-items: baseline;
+    justify-content: center;
+    padding: 5px 0;
+    padding-bottom: px;
+    line-height: 20px;
 }
 
 br {
@@ -87,6 +131,15 @@ p.big{
     border-radius: 2px;
 }
 
+.login__fields {
+    border:0;
+    border-radius: 2px;
+    align-items: center;
+    margin: auto;
+    width: auto;
+}
+
+
 .name__fields {
     border:0;
     border-radius: 2px;
@@ -94,18 +147,38 @@ p.big{
 
 .buttons
 {
+    display: inline-block;
     font-size: 20px;
     border-radius: 20px;
     width: auto;
-    padding: 9px;
+    padding: 0px;
     padding-left: 13px;
     padding-right: 13px;
+    margin: auto;
     height: 40px;
     align-items: center;
     font-family: 'Maven Pro', sans-serif;
     color: rgb(210, 233, 255);
     background-color: rgb(26, 101, 170);
-    border:0;
+    border: 0;
+}
+
+.index_buttons
+{
+    display:flex;
+    font-size: 20px;
+    border-radius: 20px;
+    width: auto;
+    padding: 0px;
+    padding-left: 13px;
+    padding-right: 13px;
+    margin: auto;
+    height: 40px;
+    align-items: center;
+    font-family: 'Maven Pro', sans-serif;
+    color: rgb(210, 233, 255);
+    background-color: rgb(26, 101, 170);
+    border: 0;
 }
 
 .manageButtons
@@ -130,6 +203,11 @@ p.big{
     color: rgb(154, 180, 204);
 }
 
+.index_buttons:hover{
+    /* text-decoration: underline; */
+    color: rgb(154, 180, 204);
+}
+
 .manageButtons:hover{
     /* text-decoration: underline; */
     color: rgb(154, 180, 204);
@@ -148,6 +226,7 @@ input[type="text"],input[type="password"],input[type = "tel"]{
     border-right-style: hidden;
     border-left-style: hidden;
     border-bottom-style: groove;
+    
 }
 
 #loginResult{
