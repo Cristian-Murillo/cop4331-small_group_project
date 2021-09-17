@@ -16,6 +16,15 @@ a{
     font-size: 30px;
     
 }
+h1{
+    color: rgb(36, 149, 255);
+    text-decoration: none;
+    font-family: 'Maven Pro', sans-serif;
+    border-radius: 15px;
+    margin-left: 10%;
+    font-size: 30px;
+    
+}
 
 
 a:hover{
@@ -284,7 +293,7 @@ input[type="text"],input[type="password"],input[type = "tel"]{
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #d6dee1;
+  background-color: rgb(26, 101, 170);
   border-radius: 20px;
   border: 6px solid transparent;
   background-clip: content-box;
