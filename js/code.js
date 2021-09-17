@@ -76,7 +76,7 @@ function doRegister() {
 	var password = document.getElementById("password").value;
 	var verifyPass = document.getElementById("varpassword").value;
 
-	if(password != verifyPass) {	
+	if(password != verifyPass) {
 		document.getElementById("PasswordError").innerHTML = "Password doesn't match";
 		return;
 	}
@@ -106,7 +106,7 @@ function doRegister() {
 		xhr.send(jsonPayload);
 	}
 	catch (err) {
-		document.getElementById("loginResult").innerHTML = err.message; 
+		document.getElementById("loginResult").innerHTML = err.message;
 	}
 }
 
@@ -163,7 +163,7 @@ function addContact() {
     //     if( (!isNaN(addPhone[i])) ) {
 	// 		alert("IN IF ELSE IM A NUMBER");
     //     }
-	// 	else{ 
+	// 	else{
 	// 		document.getElementById("addPhoneNumber").innerHTML = "";
 	// 		document.getElementById("contactAddResult").innerHTML = "Phone number accepts only numbers";
 	// 	}
@@ -222,7 +222,6 @@ function onLoad() {
 }
 
 function searchContact() {
-	alert("IN SEARCH");
 	var srch = document.getElementById("searchText").value;
 	document.getElementById("contactSearchResult").innerHTML = "";
 	var button;
@@ -232,7 +231,7 @@ function searchContact() {
 	var jsonPayload = JSON.stringify(tmp);
 
 	var url = '/LAMPAPI/Search.' + extension;
-	
+
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
@@ -244,32 +243,34 @@ function searchContact() {
 
 				var list = document.getElementById('contactSearchRes');
 				list.innerHTML = "";
-				
+
 				for (var i = 0; i < jsonObject.results.length; i++) {
 					var object = jsonObject.results[i];
           			var entry = document.createElement('li');
-					entry.appendChild(document.createTextNode(object.ContactFirstName+ " " + object.ContactLastName + " " +
-					object.Phone + " " + object.Email) );
-					list.appendChild(entry);
-					
+					entry.appendChild(document.createTextNode(
+						object.ContactFirstName + " " +
+						object.ContactLastName + " " +
+						object.Phone + " " +
+						object.Email));
+
 					var btn = document.createElement("BUTTON");       // Create a <button> element
-            		
+            		btn.style.float = "right" // Bind button to right of entry
 					btn.id = object.ID;
 					btn.FirstName = object.ContactFirstName;
 					btn.lastName = object.ContactLastName;
 					btn.Email = object.Email;
 					btn.Phone = object.Phone;
             		btn.innerText = "DELETE";
-					
-            		list.appendChild(btn);
+            		entry.appendChild(btn);
 
 					btn.addEventListener("click", function(e)  {
-						deleteContact(this.id, this.FirstName, this.lastName, this.Email, this.Phone );
-						
+						deleteContact(this.id, this.FirstName, this.lastName, this.Email, this.Phone);
 					});
+
+					list.appendChild(entry);
           		}
 				document.getElementsByTagName("p")[0].innerHTML = contactList;
-			}	
+			}
 		};
 		xhr.send(jsonPayload);
 	}
