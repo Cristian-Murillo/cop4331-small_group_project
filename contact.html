@@ -11,43 +11,20 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Maven+Pro&display=swap" rel="stylesheet"> 
 
-        <script type="text/javascript" src="js/code.js"></script>
+        <script type="text/javascript" src="js/code.js"> window.onload = onLoad; window.onload = searchContact;</script>
     </head>
 
-    <body onload = "onLoad();">
+    <body>
         <header>
             <h2><a id="link" href="index.html">Contacts-R-Us</a></h2><br />
             <h1 id="title">Contact Page </h1>
-            <h1 id="welcome"></h1>
         </header>
-    
-<!--    
-<div id="accessUIDiv">
-	<br />
-	<input type="text" id="searchText" placeholder=" Contact To Search For"/><br /><br />
-	<button type="button" id="searchContactButton" class="buttons" onclick="searchContact();"> Search Contact </button><br />
-	<span id="contactSearchResult"></span>
-	<p id="contactList">
-	</p><br />
-  <form>
-	<input type="text" id="addFirstName" placeholder=" First Name">
-    <input type="text" id="addLastName" placeholder=" Last Name">
-    <input maxLength = "12" type="tel" id="addPhoneNumber" placeholder="XXX XXX XXXX" pattern = "[0-9]{3} [0-9]{3} [0-9]{4}" required>
-    <input type="text" id="addEmail" placeholder=" E-mail"><br />
-	<button type="submit" id="addContactButton" class="buttons" onclick="addContact();"> Add Contact </button><br />
-    </form>
-  <span id="contactAddResult"></span><br />
-
-    <input type="text" id="contactText" placeholder=" Contact To Delete"><br /><br />
-	<button type="button" id="deleteContactButton" class="buttons" onclick="deleteContact();"> Delete Contact </button><br />
-	<span id="contactDeleteResult"></span><br />
--->
         <span id="searchBox" class="box">
             <div>
                 <form id="searchContent">
                     <div id="searchDiv">
-                        <input type="text" id="searchText" placeholder=" Contact To Search For"/>
-                        <button type="button" id="searchContactButton" class="buttons" onclick="searchContact();"> Search</button><br />
+                        <h2>Search</h2>
+                        <input type="text" id="searchText" placeholder=" Contact To Search For" oninput="searchContact();"/>
                     </div>
                     <div id="contactSearchResult" style="display: none;">
                         <p id="contactList"></p>
@@ -55,15 +32,16 @@
                 </form>
                 <br />
                 <form id="addContent">
-                    <button onclick = "TEST()"> testbutton </button>
-                    <button onlick = "searchContact()"> ALERT </button>
                     <div id="accessUIDiv">
                         <input type="text" id="addFirstName" placeholder=" First Name">
                         <input type="text" id="addLastName" placeholder=" Last Name">
-                        <input maxLength = "12" type="tel" id="addPhoneNumber" placeholder="XXX XXX XXXX" pattern = "[0-9]{3} [0-9]{3} [0-9]{4}" required>
+                        <input maxLength = "10" type="tel" id="addPhoneNumber" placeholder="XXXXXXXXXX">
                         <input type="text" id="addEmail" placeholder=" E-mail"><br />
                         <button type="submit" id="addContactButton" class="buttons" onclick="addContact();"> Add Contact </button><br />
                         <p id = "contactAddResult"> </p>
+                        <p id = "contactDeleteResult"> </p>
+                        <p id = "contactUpdateResult"> </p>
+                        <p id = "errorResult"> </p>
                     </div>
                 </form>
             </div>
