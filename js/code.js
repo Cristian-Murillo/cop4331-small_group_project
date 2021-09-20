@@ -81,11 +81,7 @@ function doRegister() {
 	var login = document.getElementById("user").value;
 	var password = document.getElementById("password").value;
 	var verifyPass = document.getElementById("varpassword").value;
-
-	if(password != verifyPass) {
-		document.getElementById("PasswordError").innerHTML = "Password doesn't match";
-		return;
-	}
+	
 	var tmp = { firstName: firstName, lastName: lastName, login: login, password: password,  passwordConfirm: verifyPass};
 	var jsonPayload = JSON.stringify(tmp);
 
@@ -99,20 +95,23 @@ function doRegister() {
 			if (this.readyState == 4 && this.status == 200) {
 				var jsonObject = JSON.parse(xhr.responseText);
 				userId = jsonObject.id;
-				if (userId > 1) {
-					document.getElementById("loginResult").innerHTML = "Account already exist";
+				if (userId < 1) {
+					document.getElementById("PasswordError").innerHTML = jsonObject.error;
+					setTimeout(function() {
+						document.getElementById("PasswordError").innerHTML = "";
+					}, 3000);
 					return;
 				}
 				firstName = jsonObject.firstName;
 				lastName = jsonObject.lastName;
 				saveCookie();
-				window.location.href = "contact.html";
+				window.location.href = "login.html";
 			}
 		};
 		xhr.send(jsonPayload);
 	}
 	catch (err) {
-		document.getElementById("loginResult").innerHTML = err.message;
+		document.getElementById("PasswordError").innerHTML = err.message;
 	}
 }
 
@@ -195,10 +194,11 @@ function addContact() {
 	try {
 		xhr.onreadystatechange = function () {
 			if (this.readyState == 4 && this.status == 200) {
-				document.getElementById("contactAddResult").innerHTML = "Contact has been added";
+				document.getElementById("contactAddResult").innerHTML = "Contact being added";
 				setTimeout(function() {
 					document.getElementById("contactAddResult").innerHTML = "";
-				}, 3000);
+					searchContact();
+				}, 2000);
 			}
 		};
 		xhr.send(jsonPayload);
@@ -212,7 +212,8 @@ function addContact() {
 	document.getElementById("addEmail").value = null;
 	document.getElementById("addPhoneNumber").value = null;
 
-	searchContact();
+	
+	
 }
 
 function onLoad() {
@@ -235,9 +236,8 @@ function onLoad() {
 }
 
 function searchContact() {
-
 	srch = document.getElementById("searchText").value;
-	alert(srch)
+	console.log(srch);
 	
 	document.getElementById("contactSearchResult").innerHTML = "";
 	var contactList = "";
@@ -262,10 +262,15 @@ function searchContact() {
 				for (var i = 0; i < jsonObject.results.length; i++) {
 					var object = jsonObject.results[i];
           			var entry = document.createElement('li');
+					var phn = object.Phone;
+					if(phn.length == 10) {
+						phn = "(" +object.Phone[0]+object.Phone[1]+object.Phone[2]+") "+object.Phone[3]+object.Phone[4]+object.Phone[5]+"-"+object.Phone[6]+object.Phone[7]+object.Phone[8]+object.Phone[9];
+					}
+				  	
 					entry.appendChild(document.createTextNode(
 						object.ContactFirstName + " " +
-						object.ContactLastName + " " +
-						object.Phone + " " +
+						object.ContactLastName + "\n " +
+						phn + "    " +
 						object.Email));
 
 					var btn = document.createElement("BUTTON");       // Create a <button> element
@@ -330,10 +335,11 @@ function deleteContact(deleteID, deleteFirstName, deleteLastName, deleteEmail, d
 	try {
 		xhr.onreadystatechange = function () {
 			if (this.readyState == 4 && this.status == 200) {
-			document.getElementById("contactDeleteResult").innerHTML = "Contact has been deleted";
+			document.getElementById("contactDeleteResult").innerHTML = "Contact being deleted";
 			setTimeout(function() {
 				document.getElementById("contactDeleteResult").innerHTML = "";
-			}, 3000);
+				searchContact();
+			}, 1500);
 		}
 	};
 	xhr.send(jsonPayload);
@@ -348,7 +354,7 @@ function deleteContact(deleteID, deleteFirstName, deleteLastName, deleteEmail, d
 	conEmail = "";
 	conPhone = 0;
 	
-	searchContact();
+	
 }
 function unRevealEdit() {
 	
@@ -384,7 +390,7 @@ function editContact(){
             document.getElementById("errorResult").innerHTML="Phone is invalid"
 			setTimeout(function() {
 				document.getElementById("errorResult").innerHTML = "";
-			}, 3000);
+			}, 1500);
             return;
         }
     }
@@ -400,10 +406,11 @@ function editContact(){
     try {
         xhr.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-            document.getElementById("contactEditResult").innerHTML = "Contact has been updated";
+            document.getElementById("contactEditResult").innerHTML = "Contact being updated";
 			setTimeout(function() {
 				document.getElementById("contactEditResult").innerHTML = "";
-			}, 3000);
+				searchContact();
+			}, 1500);
         }
     };
     xhr.send(jsonPayload);
@@ -414,5 +421,5 @@ function editContact(){
 	
 	unRevealEdit();
 	
-	searchContact();
+	
 }
