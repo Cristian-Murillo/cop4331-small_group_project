@@ -423,3 +423,89 @@ function editContact(){
 	
 	
 }
+
+
+
+
+function getRandomIntInclusive(min, max) {
+	min = Math.ceil(min);
+	max = Math.floor(max);
+	return Math.floor(Math.random() * (max - min + 1) + min); //The maximum is inclusive and the minimum is inclusive
+  }
+  
+  function isCharacterALetter(char) {
+	return (/[a-zA-Z]/).test(char)
+  }
+  
+
+const carouselText = [
+	{text: "add.", color: "LightSteelBlue"},
+	{text: "search.", color: "LightSteelBlue"},
+	{text: "edit.", color: "LightSteelBluee"},
+	{text: "delete.", color: "LightSteelBlue"}
+]
+
+
+$( document ).ready(async function() {
+carousel(carouselText, "#feature-text")
+});
+
+async function typeSentence(sentence, eleRef, delay = 100) {
+	const letters = sentence.split("");
+	let i = 0;
+	while(i < letters.length) {
+		await waitForMs(delay + 40 * Math.random());
+		$(eleRef).append(letters[i]);
+		if (letters[i+1] == ' ')
+		{
+		i++
+		continue;
+		}
+		else if (letters[i+1] == '.' || letters[i+1] == ',')
+		{
+		await waitForMs(delay + 60 + 50 * Math.random());
+		}
+		else if (isCharacterALetter(letters[i+1]) != 1)
+		{
+		await waitForMs(delay + 20 + 40 * Math.random());
+		}
+		else;
+		i++
+	}
+	return;
+}
+
+async function deleteSentence(eleRef) {
+	const sentence = $(eleRef).html();
+	const letters = sentence.split("");
+	let i = 0;
+	while(letters.length > 0) {
+		await waitForMs(100);
+		letters.pop();
+		$(eleRef).html(letters.join(""));
+	}
+}
+
+async function carousel(carouselList, eleRef) {
+	var i = 0;
+	while(true) {
+	updateFontColor(eleRef, carouselList[i].color)
+	await typeSentence(carouselList[i].text, eleRef);
+	await waitForMs(1500);
+	await deleteSentence(eleRef);
+	await waitForMs(500);
+	i++
+	if(i >= carouselList.length) {i = 0;}
+	}
+}
+
+function updateFontColor(eleRef, color) {
+	$(eleRef).css('color', color);
+}
+
+function waitForMs(ms) {
+	return new Promise(resolve => setTimeout(resolve, ms))
+}
+
+
+
