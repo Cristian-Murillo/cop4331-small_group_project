@@ -27,10 +27,12 @@ h1{
     text-decoration: none;
     font-family: 'Maven Pro', sans-serif;
     border-radius: 15px;
-    margin-left: 10%;
-    font-size: 30px;
+    margin-left: 2%;
+    font-size: 35px;
     
 }
+
+
 
 
 a:hover{
@@ -301,6 +303,9 @@ input[type="text"],input[type="password"],input[type = "tel"]{
     font-family: 'Maven Pro', sans-serif;
 }
 
+#loggedInDiv{
+    padding-left: 2%;
+}
 
 
 ::-webkit-scrollbar {
