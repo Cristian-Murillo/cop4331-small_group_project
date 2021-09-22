@@ -100,9 +100,8 @@ a:hover{
     /*width: 50%;*/
     font-size: 32px;
     font-weight: normal;
-    text-align: center;
+    text-align: left;
     line-height: 34px;
-    justify-content: center;
     font-family: 'Maven Pro', sans-serif;
 }
 
