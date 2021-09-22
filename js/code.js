@@ -170,19 +170,14 @@ function addContact() {
         }
 		else{
 			document.getElementById("addPhoneNumber").innerHTML = "";
-			document.getElementById("errorResult").innerHTML = "Phone number accepts only numbers";
+			document.getElementById("errorResult").innerHTML = "Phone number field accepts only numbers";
 			setTimeout(function() {
 				document.getElementById("errorResult").innerHTML = "";
 			}, 3000);
+			return;
 		}
     }
 
-	if(addFirst == "" || addLast == "" || addEmail == "" || addPhone == "" ) {
-		document.getElementById("contactDeleteResult").innerHTML = "Fill out all entries";
-		setTimeout(function() {
-			document.getElementById("contactDeleteResult").innerHTML = "";
-		}, 3000);
-	}
 
 	var tmp = { id: userId, addFirstName: addFirst, addLastName: addLast, addEmail: addEmail,
 		 					addPhoneNumber: addPhone};
@@ -194,17 +189,27 @@ function addContact() {
 	try {
 		xhr.onreadystatechange = function () {
 			if (this.readyState == 4 && this.status == 200) {
-				document.getElementById("contactAddResult").innerHTML = "Contact being added";
-				setTimeout(function() {
-					document.getElementById("contactAddResult").innerHTML = "";
-					searchContact();
-				}, 2000);
+				var jsonObject = JSON.parse(xhr.responseText);
+				if(jsonObject.id >= 1) {
+					document.getElementById("contactAddResult").innerHTML = "Contact being added";
+					setTimeout(function() {
+						document.getElementById("contactAddResult").innerHTML = "";
+						searchContact();
+					}, 2000);
+				}
+				else { 
+					document.getElementById("errorResult").innerHTML = jsonObject.error;
+					setTimeout(function() {
+						document.getElementById("errorResult").innerHTML = "";
+					}, 2000);
+				}
+				
 			}
 		};
 		xhr.send(jsonPayload);
 	}
 	catch (err) {
-		document.getElementById("errorResult").innerHTML = err.message;
+		document.getElementById("errorResult").innerHTML = jsonObject.error;
 	}
 
 	document.getElementById("addFirstName").value = null;
