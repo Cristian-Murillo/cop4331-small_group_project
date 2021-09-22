@@ -17,6 +17,8 @@
 			$rows = array_uintersect($rows, getRowsContainingString($conn, $id, $splitSearchArr[$i]), 'index_compare_func');
 		}
 
+		$rows = array_values($rows);
+
 		$numResults = count($rows);
 
 		if ($numResults < 1) {
