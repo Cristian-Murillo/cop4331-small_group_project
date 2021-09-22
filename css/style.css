@@ -1,10 +1,16 @@
 
+title {
+    font-family: 'Maven Pro', sans-serif;
+}
+
 h2 {
     font-family: 'Maven Pro', sans-serif;
+    font-weight:500;
 }
 
 body{
     background: rgb(18, 20, 24);
+    font-family: 'Maven Pro', sans-serif;
 
 }
 a{
@@ -70,18 +76,21 @@ a:hover{
     align-items: center;
     margin-left: auto;
     margin-right: auto;
+    font-family: 'Maven Pro', sans-serif;
 }
 
 .header__container {
     height: 80px;
     margin-top: 25px;
     justify-content: space-around;
+    font-family: 'Maven Pro', sans-serif;
 }
 
 .header__side {
     display: flex;
     align-items: center;
     margin-left: 70%;
+    font-family: 'Maven Pro', sans-serif;
 }
 
 .log__text {
@@ -94,6 +103,7 @@ a:hover{
     text-align: center;
     line-height: 34px;
     justify-content: center;
+    font-family: 'Maven Pro', sans-serif;
 }
 
 .index__text {
@@ -105,6 +115,7 @@ a:hover{
     text-align: center;
     line-height: 34px;
     justify-content: center;
+    font-family: 'Maven Pro', sans-serif;
 }
 
 .or_text {
@@ -119,6 +130,7 @@ a:hover{
     padding: 5px 0;
     padding-bottom: px;
     line-height: 20px;
+    font-family: 'Maven Pro', sans-serif;
 }
 
 br {
@@ -138,6 +150,7 @@ p.big{
 .input__fields {
     border:0;
     border-radius: 2px;
+    font-family: 'Maven Pro', sans-serif;
 }
 
 .login__fields {
@@ -146,6 +159,7 @@ p.big{
     align-items: center;
     margin: auto;
     width: auto;
+    font-family: 'Maven Pro', sans-serif;
 }
 
 
@@ -238,6 +252,12 @@ input[type="text"],input[type="password"],input[type = "tel"]{
     
 }
 
+#link{
+    font-family: 'Maven Pro', sans-serif;
+    font-weight: normal;
+}
+
+
 #loginResult{
     font-size: 20px;
     color: red;
@@ -276,13 +296,13 @@ input[type="text"],input[type="password"],input[type = "tel"]{
     border-radius: 25px;
     margin-left: 10px;
     padding: 20px;
-    font-size: large;
-    height: 300px;
-
+    font-size: 15pt;
+    height: 344px;
     overflow: auto;
-
-
+    font-family: 'Maven Pro', sans-serif;
 }
+
+
 
 ::-webkit-scrollbar {
   width: 20px;
@@ -305,7 +325,7 @@ input[type="text"],input[type="password"],input[type = "tel"]{
 
 #editContent{
     background: #88c5ff;
-    width: 30%;
+    width: 21%;
     border-radius: 25px;
     margin-left: 10px;
     padding: 20px;
@@ -313,9 +333,12 @@ input[type="text"],input[type="password"],input[type = "tel"]{
 
 .box{
     display: flex;
+    padding-left: 2%;
 }
 
-
+.logoutButton{
+    padding-left: 2%;
+}
 
 .typing-container {
     position: absolute;
